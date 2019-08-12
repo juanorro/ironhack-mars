@@ -14,10 +14,8 @@ const mars =[
 ];
 
 const rover = {
-  direction: ['N', 'E', 'S', 'W'],
-  x: 0,
-  y: 0,
-  position: [{x: 0, y: 0}],
+  direction: 'N',
+  position: {x: 0, y: 0},
   travelLog: []
 };
 // ======================
@@ -25,16 +23,16 @@ const rover = {
 function turnLeft(rover){
   switch (rover.direction){
     case 'N':
-      rover.direction.push('W');
+      rover.direction = 'W';
       break;
     case 'W':
-      rover.direction.push('S');
+      rover.direction = 'S';
       break;
     case 'E':
-      rover.direction.push('N');
+      rover.direction = 'N';
       break;
     case 'S':
-      rover.direction.push('E');
+      rover.direction = 'E';
       break;
     }
   console.log("turnLeft was called!");
@@ -44,16 +42,16 @@ function turnLeft(rover){
 function turnRight(rover){
   switch (rover.direction){
     case 'N':
-      rover.direction.push('E');
+      rover.direction.y = 'E';
       break;
     case 'W':
-      rover.direction.push('N');
+      rover.direction = 'N';
       break;
     case 'E':
-      rover.direction.push('S');
+      rover.direction = 'S';
       break;
     case 'S':
-      rover.direction.push('W');
+      rover.direction = 'W';
       break;
   }
   console.log("turnRight was called!");
@@ -61,35 +59,42 @@ function turnRight(rover){
 }
 
 function moveForward(rover){
-  switch (rover.position){
+  switch (rover.direction){
     case 'N':
-      rover.travelLog.push[0]++;
+      rover.position.y -= 1;
       break;
     case 'W':
-      rover.travelLog.push[1]--;
+      rover.position.x -= 1;
       break;
     case 'S':
-      rover.travelLog.push[0]--;
+      rover.position.y += 1;
+      break;
+    case 'E':
+      rover.position.x += 1;
       break;
   }
   console.log("moveForward was called");
 }
 
 function commands(rover, orders){
-  for(let i = 0; i > orders.length; i++){
+  for(let i = 0; i < orders.length; i++){
     let order = orders[i];
     switch (order){
       case 'f':
         moveForward(rover, order);
+        rover.travelLog.push(moveForward);
         break;
       case 'r':
         turnRight(rover, order);
+        rover.travelLog.push(turnRight);
         break;
       case 'l':
         turnLeft(rover, order);
+        rover.travelLog.push(turnLeft);
         break;
     }
   }
 }
 commands(rover, 'rffrfflfrff');
 console.log(rover.travelLog);
+console.log(commands);
